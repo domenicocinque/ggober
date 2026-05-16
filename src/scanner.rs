@@ -141,29 +141,24 @@ impl Iterator for Scanner {
             return Some(Ok(ScanEvent::Match(Match { path, size })));
         }
 
-        // Iterate through the file system entries
-        while let Some(entry) = self.walker.next() {
-            let entry = match entry {
-                Ok(entry) => entry,
-                Err(error) => return Some(Err(error.into())),
-            };
+        let entry = match self.walker.next()? {
+            Ok(entry) => entry,
+            Err(error) => return Some(Err(error.into())),
+        };
 
-            let path = entry.path();
-            if !should_remove(path, self.profile) {
-                return Some(Ok(ScanEvent::Visited));
-            }
-
-            let path = path.to_path_buf();
-            if entry.file_type().is_dir() {
-                self.walker.skip_current_dir();
-            }
-
-            self.pending_size = Some(path.clone());
-
-            return Some(Ok(ScanEvent::Sizing(path)));
+        let path = entry.path();
+        if !should_remove(path, self.profile) {
+            return Some(Ok(ScanEvent::Visited));
         }
 
-        None
+        let path = path.to_path_buf();
+        if entry.file_type().is_dir() {
+            self.walker.skip_current_dir();
+        }
+
+        self.pending_size = Some(path.clone());
+
+        Some(Ok(ScanEvent::Sizing(path)))
     }
 }
 
