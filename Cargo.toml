@@ -1,6 +1,6 @@
 [package]
 name = "ggober"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "Clean removable build and cache artifacts from code folders"
 license = "MIT"

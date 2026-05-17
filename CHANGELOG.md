@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2](https://github.com/domenicocinque/ggober/compare/v0.1.1...v0.1.2) - 2026-05-17
+
+### Added
+
+- move live scanning progress to stderr
+
+### Other
+
+- add installation method to readme
+
 ## [0.1.1](https://github.com/domenicocinque/ggoober/compare/v0.1.0...v0.1.1) - 2026-05-17
 
 ### Other
